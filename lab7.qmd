@@ -1,5 +1,68 @@
 ---
-title: "lab7"
-format: html
+title: "lab 7: Project Introduction and Methods"
+format: 
+  html:
+    self-contained: true
 ---
+
+```{r}
+library(tidyverse)
+library(tidymodels)
+```
+
+
+
+
+**Data**
+```{r}
+carbon_data <- read_csv("C:/ESS330/lab7/data/carbon.csv")
+
+treecover_data <- read_csv("C:/ESS330/lab7/data/treecover.csv")
+```
+
+
+
+
+##Data Cleaning##
+
+
+```{r}
+# Filter the data
+cleaned_tree_data <- treecover_data %>%
+  filter(iso == "USA", year >= 2001, year <= 2016)
+
+# Check the cleaned data
+head(cleaned_tree_data)
+```
+
+```{r}
+
+cleaned_carbon_data <- carbon_data |>
+  select(year = Year, Month, CO2 = `Seasonally Adjusted CO2 Fit (ppm)`) |>
+  filter(year >= 2001, year <= 2016) |>
+  group_by(year) |>
+  summarise(Yearly_Mean = mean(CO2), na.rm = TRUE) |>
+  ungroup()
+  
+```
+
+
+```{r}
+joined_data <- inner_join(cleaned_carbon_data, cleaned_tree_data, by = "year")
+view(joined_data)
+```
+
+
+```{r}
+cleaned_carbon_data |>
+  ggplot(aes(x = year, y = Yearly_Mean)) +
+         geom_abline()
+
+```
+
+
+
+
+
+
 
