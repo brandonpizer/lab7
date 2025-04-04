@@ -60,9 +60,15 @@ view(joined_data)
 
 # Plot Carbon Data
 ```{r}
-cleaned_carbon_data |>
-  ggplot(aes(x = year, y = Yearly_Mean)) +
-         geom_abline()
+ggplot(cleaned_carbon_data, aes(x = year, y = Yearly_Mean)) +
+  geom_line(color = "blue", size = 1) +  
+  geom_point(color = "red", size = 2) + 
+  labs(
+    title = "Yearly Mean CO2 Levels (2001-2016)",
+    x = "Year",
+    y = "CO2 (ppm)"
+  ) +
+  theme_minimal()
 
 ```
 
