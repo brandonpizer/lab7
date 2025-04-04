@@ -79,12 +79,50 @@ ggplot(joined_data, aes(x = year, y = loss__ha)) +
   labs(
     title = "Annual Tree Cover Loss (2001-2016)",
     x = "Year",
-    y = "Tree Cover Loss"
+    y = "Tree Cover Loss (ha)"
   ) +
   theme_minimal()  
 
 ```
+# Plot Tree Loss and Carbon 
+```{r}
+library(scales) 
 
+plot_data <- joined_data %>%
+  select(year, Yearly_Mean, loss__ha) %>%
+  pivot_longer(cols = c(Yearly_Mean, loss__ha), 
+               names_to = "Variable", 
+               values_to = "Value")
+
+joined_data <- joined_data %>%
+  mutate(scaled_loss = rescale(loss__ha, to = range(Yearly_Mean, na.rm = TRUE)))
+
+
+ggplot() +
+  geom_line(data = joined_data, aes(x = year, y = Yearly_Mean, color = "Carbon Emissions (ppm)"), size = 1) +
+  geom_point(data = joined_data, aes(x = year, y = Yearly_Mean, color = "Carbon Emissions (ppm)"), size = 2) +
+
+  geom_line(data = joined_data, aes(x = year, y = scaled_loss, color = "Tree Cover Loss (ha)"), size = 1) +
+  geom_point(data = joined_data, aes(x = year, y = scaled_loss, color = "Tree Cover Loss (ha)"), size = 2) +
+
+  scale_y_continuous(
+    name = "Carbon Emissions (ppm)", 
+    sec.axis = sec_axis(~rescale(., from = range(joined_data$Yearly_Mean, na.rm = TRUE), 
+                                    to = range(joined_data$loss__ha, na.rm = TRUE)), 
+                        name = "Tree Cover Loss (ha)")
+  ) +
+
+  scale_color_manual(values = c("Carbon Emissions (ppm)" = "blue", "Tree Cover Loss (ha)" = "darkgreen")) +
+  
+  labs(
+    title = "Tree Cover Loss & Carbon Emissions (2001-2016)",
+    x = "Year",
+    color = "Legend"
+  ) +
+  
+  theme_minimal()
+
+```
 
 
 
