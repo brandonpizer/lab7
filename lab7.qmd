@@ -1,8 +1,24 @@
 ---
-title: "lab 7: Project Introduction and Methods"
-format: 
+title: "Lab 7: Project Introduction and Methods"
+authors: 
+  - name: Cecily Sperber
+    affilication: Colorado State University
+    roles: coding
+    corresponding: true 
+  - name: Libby Prince
+    affilication: Colorado State University
+    roles: writing 
+    corresponding: false
+  - name: Brandon Pizer
+    affilication: Colorado State University
+    roles: research & data collection 
+    corresponding: false
+format:
   html:
     self-contained: true
+execute:
+  echo: true
+bibliography: references.bib
 ---
 
 ```{r}
@@ -10,33 +26,24 @@ library(tidyverse)
 library(tidymodels)
 ```
 
-
-
-
-**Data**
+# Data
 ```{r}
 carbon_data <- read_csv("C:/ESS330/lab7/data/carbon.csv")
 
 treecover_data <- read_csv("C:/ESS330/lab7/data/treecover.csv")
 ```
 
-
-
-
-##Data Cleaning##
-
-
+# Data Cleaning
 ```{r}
-# Filter the data
+# Tree Data
 cleaned_tree_data <- treecover_data %>%
   filter(iso == "USA", year >= 2001, year <= 2016)
 
-# Check the cleaned data
 head(cleaned_tree_data)
 ```
 
 ```{r}
-
+# Carbon Data
 cleaned_carbon_data <- carbon_data |>
   select(year = Year, Month, CO2 = `Seasonally Adjusted CO2 Fit (ppm)`) |>
   filter(year >= 2001, year <= 2016) |>
@@ -45,14 +52,13 @@ cleaned_carbon_data <- carbon_data |>
   ungroup()
   
 ```
-
-
+# Joining Data
 ```{r}
 joined_data <- inner_join(cleaned_carbon_data, cleaned_tree_data, by = "year")
 view(joined_data)
 ```
 
-
+# Plot Carbon Data
 ```{r}
 cleaned_carbon_data |>
   ggplot(aes(x = year, y = Yearly_Mean)) +
