@@ -71,7 +71,19 @@ ggplot(cleaned_carbon_data, aes(x = year, y = Yearly_Mean)) +
   theme_minimal()
 
 ```
+# Plot Tree Data
+```{r}
+ggplot(joined_data, aes(x = year, y = loss__ha)) +
+  geom_line(color = "darkgreen", size = 1) +  
+  geom_point(color = "orange", size = 2) +  
+  labs(
+    title = "Annual Tree Cover Loss (2001-2016)",
+    x = "Year",
+    y = "Tree Cover Loss"
+  ) +
+  theme_minimal()  
 
+```
 
 
 
