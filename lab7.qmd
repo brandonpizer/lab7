@@ -20,6 +20,8 @@ execute:
   echo: true
 bibliography: references.bib
 ---
+# Introduction 
+
 
 ```{r}
 library(tidyverse)
@@ -27,6 +29,8 @@ library(tidymodels)
 ```
 
 # Data
+## For our project, we worked with two datasets: one containing carbon emissions data and another with tree cover loss data. Below, we describe the origin, cleaning, and manipulation of the data, followed by three visualizations that help us explore potential patterns
+## We used global atmospheric carbon dioxide (CO₂) data from the National Oceanic and Atmospheric Administration (NOAA). This dataset included monthly values of CO₂ concentrations, specifically the "Seasonally Adjusted CO2 Fit (ppm)" column. And for the Tree Cover Loss Data we collected the dataset from Global Forest Watch and it includes worldwide estimates of annual forest cover in hectares. 
 ```{r}
 carbon_data <- read_csv("C:/ESS330/lab7/data/carbon.csv")
 
@@ -34,6 +38,7 @@ treecover_data <- read_csv("C:/ESS330/lab7/data/treecover.csv")
 ```
 
 # Data Cleaning
+## To clean the tree cover loss data we filtered the dataset to include only rows where the country code (iso) was "USA". Then we also filtered for the same time period, 2001–2016, to match the carbon data. Lastly, only relevant columns were kept; year and loss\_\_ha (tree cover loss in hectares).
 ```{r}
 # Tree Data
 cleaned_tree_data <- treecover_data %>%
@@ -41,7 +46,7 @@ cleaned_tree_data <- treecover_data %>%
 
 head(cleaned_tree_data)
 ```
-
+## To clean the carbon dataset we removed unnecessary columns and kept only Year, Month, and Seasonally Adjusted CO2 Fit (ppm). We also filtered the data to include only the years from 2001 to 2016. Then we grouped the monthly values by year and calculated the annual average CO₂ level to simplify the analysis.
 ```{r}
 # Carbon Data
 cleaned_carbon_data <- carbon_data |>
@@ -69,8 +74,9 @@ ggplot(cleaned_carbon_data, aes(x = year, y = Yearly_Mean)) +
     y = "CO2 (ppm)"
   ) +
   theme_minimal()
-
 ```
+## Graph 1: Yearly Mean CO₂ Levels (2001–2016) - Graph 1 displays the average annual CO₂ concentration in the atmosphere over time. A clear upward trend highlights the increase in emissions over the selected years.
+
 # Plot Tree Data
 ```{r}
 ggplot(joined_data, aes(x = year, y = loss__ha)) +
@@ -82,8 +88,9 @@ ggplot(joined_data, aes(x = year, y = loss__ha)) +
     y = "Tree Cover Loss (ha)"
   ) +
   theme_minimal()  
-
 ```
+## Graph 2: Annual Tree Cover Loss in the USA (2001–2016) - Graph 2 shows how tree cover loss has varied across the same time period. Peaks in certain years may indicate significant deforestation events or natural disturbances such as wildfires or storms.
+
 # Plot Tree Loss and Carbon 
 ```{r}
 library(scales) 
@@ -97,33 +104,27 @@ plot_data <- joined_data %>%
 joined_data <- joined_data %>%
   mutate(scaled_loss = rescale(loss__ha, to = range(Yearly_Mean, na.rm = TRUE)))
 
-
 ggplot() +
   geom_line(data = joined_data, aes(x = year, y = Yearly_Mean, color = "Carbon Emissions (ppm)"), size = 1) +
   geom_point(data = joined_data, aes(x = year, y = Yearly_Mean, color = "Carbon Emissions (ppm)"), size = 2) +
-
   geom_line(data = joined_data, aes(x = year, y = scaled_loss, color = "Tree Cover Loss (ha)"), size = 1) +
   geom_point(data = joined_data, aes(x = year, y = scaled_loss, color = "Tree Cover Loss (ha)"), size = 2) +
-
   scale_y_continuous(
     name = "Carbon Emissions (ppm)", 
     sec.axis = sec_axis(~rescale(., from = range(joined_data$Yearly_Mean, na.rm = TRUE), 
                                     to = range(joined_data$loss__ha, na.rm = TRUE)), 
                         name = "Tree Cover Loss (ha)")
   ) +
-
   scale_color_manual(values = c("Carbon Emissions (ppm)" = "blue", "Tree Cover Loss (ha)" = "darkgreen")) +
-  
   labs(
     title = "Tree Cover Loss & Carbon Emissions (2001-2016)",
     x = "Year",
     color = "Legend"
   ) +
-  
   theme_minimal()
 
 ```
-
+## Graph 3: Correlation of Tree Cover Loss and CO₂ Emissions (2001-2016) - Graph 3 explores the potential relationships between forest loss and atmospheric carbon levels. We created a dual-axis graph for both tree cover loss (scaled to match the range of CO₂) and CO₂ levels which are plotted together by year. This visualization helps us visually assess whether higher deforestation years might be associated with increased carbon emissions.
 
 
 
