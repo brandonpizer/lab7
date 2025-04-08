@@ -63,6 +63,19 @@ joined_data <- inner_join(cleaned_carbon_data, cleaned_tree_data, by = "year")
 view(joined_data)
 ```
 
+# Shaprio Test 
+```{r}
+shapiro_co2 <- shapiro.test(joined_data$Yearly_Mean)
+shapiro_tree <- shapiro.test(joined_data$loss__ha)
+
+shapiro_co2
+shapiro_tree
+```
+# Correlation Test
+```{r}
+cor.test(joined_data$Yearly_Mean, joined_data$loss__ha, method = "pearson")
+```
+
 # Plot Carbon Data
 ```{r}
 ggplot(cleaned_carbon_data, aes(x = year, y = Yearly_Mean)) +
