@@ -1,5 +1,5 @@
 ---
-title: "Lab 7: Project Introduction and Methods"
+title: "Correlation of Carbon Emissions and Tree Cover Loss in the USA"
 authors: 
   - name: Cecily Sperber
     affilication: Colorado State University
@@ -20,9 +20,19 @@ execute:
   echo: true
 bibliography: references.bib
 ---
-# Introduction 
 
 
+# Introduction
+Climate change is one of the most pressing global issues of the 21st century. While there are many causes, the rise in carbon dioxide (CO₂) in the atmosphere is known to be the main driver of human-caused climate change (EPA, 2023). Carbon dioxide is a greenhouse gas, meaning it traps heat in the atmosphere. This leads to warmer global temperatures, changes in weather patterns, and rising sea levels. To understand these impacts, scientists study the carbon cycle, especially the role of forests, which act as a natural carbon sink by absorbing CO₂. However, when forests are destroyed or degraded, their ability to absorb carbon is reduced, and often, carbon is sent back into the atmosphere (Pan et al., 2011).
+This project examines the connection between carbon dioxide emissions and tree cover loss in the United States from 2001 to 2016. We focus on whether yearly forest loss is related to changes in CO₂ levels in the atmosphere. The goal is to better understand how deforestation affects the carbon balance in a country that significantly influences global emissions and 
+
+# Background
+Deforestation and forest degradation are major contributors to climate change because they release carbon stored in trees. Forests serve as vital carbon sinks, sequestering CO₂ from the atmosphere through photosynthesis (Bastin et al., 2019). When trees are cut down, burned, or otherwise destroyed, this stored carbon is released into the atmosphere, contributing to the greenhouse effect and rising global temperatures (Curtis et al., 2018). As one of the top carbon-emitting countries, the United States has a responsibility to mitigate emissions through land management and forest conservation.
+Forest loss in the U.S. is driven by a combination of human activities and natural events. Factors such as logging, urban development, wildfires, and pests all contribute to annual changes in tree cover. These changes raise questions about whether losing forests in the U.S. clearly affects carbon dioxide levels in the air. While fossil fuel combustion is the primary source of U.S. emissions, the impact of land use change, including deforestation, is often overlooked in national climate discussions.
+Understanding the relationship between forest cover and CO₂ is important for evaluating the climate impacts of land-use decisions. With its extensive and diverse forest ecosystems, the U.S. has the potential to reduce emissions and increase carbon storage through conservation and reforestation efforts. Monitoring cover loss and how it affects carbon levels is important so we can create better climate policies and reach national climate goals.
+
+
+**Necessary Packages**
 ```{r}
 library(tidyverse)
 library(tidymodels)
@@ -38,9 +48,22 @@ carbon_data <- read_csv("C:/ESS330/lab7/data/carbon.csv")
 treecover_data <- read_csv("C:/ESS330/lab7/data/treecover.csv")
 ```
 
+# Methods 
+This project uses a combination of data cleaning, visualization, and basic statistical analysis to examine the relationship between carbon dioxide concentrations and tree cover loss in the United States from 2001 to 2016. The primary goal is to assess whether a measurable correlation exists between annual CO₂ levels and the amount of tree cover lost in the same years.
+After joining the datasets, separate plots are created for carbon dioxide and tree loss individually, and then a dual-axis plot is designed to observe both variables together. This visual comparison helps identify whether the patterns in CO₂ levels and tree loss appear to be linked in any consistent way over time. To evaluate the relationship statistically, a correlation analysis (e.g., Pearson correlation coefficient) and a Shapiro test will be conducted. 
+One potential challenge is that carbon dioxide concentrations reflect global atmospheric conditions, not just emissions or carbon sinks within the United States. While the CO₂ dataset is valuable and accurate, it may not respond exclusively to tree cover loss in the U.S., especially given the global nature of carbon mixing in the atmosphere. This could obscure the direct correlation between U.S. forest loss and atmospheric CO₂ levels. Additionally, the tree cover loss data does not distinguish between temporary and permanent loss. Some tree loss may be due to natural events or sustainable forestry practices followed by replanting, meaning the carbon released is not necessarily permanent. Without knowing the context of each year’s tree loss, it is difficult to estimate the true carbon impact of those changes.
+The correlation and regression methods used in this project are relatively simple and cannot account for complex interactions between multiple climate and land use variables. For example, CO₂ levels are influenced by a wide range of factors, including industrial activity, transportation, and ocean absorption, not just forest loss. Therefore, a statistically significant correlation between the two variables does not prove causation, and results must be interpreted carefully.
+Furthermore, the 15-year time frame provides a limited number of data points (n = 16), which can reduce statistical power and make it more difficult to detect subtle trends. If the relationship is weak or non-linear, more advanced time-series analysis or larger datasets may be needed to fully understand the dynamics at play.
+Despite the limitations, the selected methods are well-suited for the initial goals of this project. The use of line graphs and dual-axis plots allows for a clear visual comparison of two key environmental indicators, while the correlation coefficient provides a first step toward understanding whether a statistical relationship exists. The scale of the data is also well-suited for the correlation analysis. These approaches are appropriate for an exploratory study and can help guide further questions or more complex modeling if a clear pattern is observed.
+Ultimately, the goal of this analysis is not to claim a definitive causal link but to explore whether patterns in forest loss and carbon emissions are moving together in a way that supports further investigation. If a strong correlation is found, it could support the argument that U.S. forest protection is an important component of national climate strategies. If no correlation is found, that result is still valuable in showing the complexity of climate systems and the importance of using multi-factor analysis in environmental research.
+
 # Data Cleaning
 To clean the tree cover loss data we filtered the dataset to include only rows where the country code (iso) was "USA". Then we also filtered for the same time period, 2001–2016, to match the carbon data. Lastly, only relevant columns were kept; year and loss\_\_ha (tree cover loss in hectares).
 ```{r}
+library(tidyverse)
+library(tidymodels)
+library(usethis)
+
 # Tree Data
 cleaned_tree_data <- treecover_data %>%
   filter(iso == "USA", year >= 2001, year <= 2016)
