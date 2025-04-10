@@ -1,0 +1,30 @@
+[
+  {
+    "objectID": "lab7.html",
+    "href": "lab7.html",
+    "title": "Correlation of Carbon Emissions and Tree Cover Loss in the USA",
+    "section": "",
+    "text": "Climate change is one of the most pressing global issues of the 21st century. While there are many causes, the rise in carbon dioxide (CO₂) in the atmosphere is known to be the main driver of human-caused climate change. Carbon dioxide is a greenhouse gas, meaning it traps heat in the atmosphere. This leads to warmer global temperatures, changes in weather patterns, and rising sea levels. To understand these impacts, scientists study the carbon cycle, especially the role of forests, which act as a natural carbon sink by absorbing CO₂. Pan et al. (2011) states when forests are destroyed or degraded, their ability to absorb carbon is reduced, and often, carbon is sent back into the atmosphere. This project examines the connection between carbon dioxide emissions and tree cover loss in the United States from 2001 to 2016. We focus on whether yearly forest loss is related to changes in CO₂ levels in the atmosphere. The goal is to better understand how deforestation affects the carbon balance in a country that significantly influences global emissions and"
+  },
+  {
+    "objectID": "lab7.html#graph-1-yearly-mean-co₂-levels-20012016",
+    "href": "lab7.html#graph-1-yearly-mean-co₂-levels-20012016",
+    "title": "Correlation of Carbon Emissions and Tree Cover Loss in the USA",
+    "section": "Graph 1: Yearly Mean CO₂ Levels (2001–2016)",
+    "text": "Graph 1: Yearly Mean CO₂ Levels (2001–2016)\nGraph 1 displays the average annual CO₂ concentration in the atmosphere over time. A clear upward trend highlights the increase in emissions over the selected years."
+  },
+  {
+    "objectID": "lab7.html#graph-2-annual-tree-cover-loss-in-the-usa-20012016",
+    "href": "lab7.html#graph-2-annual-tree-cover-loss-in-the-usa-20012016",
+    "title": "Correlation of Carbon Emissions and Tree Cover Loss in the USA",
+    "section": "Graph 2: Annual Tree Cover Loss in the USA (2001–2016)",
+    "text": "Graph 2: Annual Tree Cover Loss in the USA (2001–2016)\nGraph 2 shows how tree cover loss has varied across the same time period. Peaks in certain years may indicate significant deforestation events or natural disturbances such as wildfires or storms."
+  },
+  {
+    "objectID": "lab7.html#graph-3-correlation-of-tree-cover-loss-and-co₂-emissions-2001-2016",
+    "href": "lab7.html#graph-3-correlation-of-tree-cover-loss-and-co₂-emissions-2001-2016",
+    "title": "Correlation of Carbon Emissions and Tree Cover Loss in the USA",
+    "section": "Graph 3: Correlation of Tree Cover Loss and CO₂ Emissions (2001-2016)",
+    "text": "Graph 3: Correlation of Tree Cover Loss and CO₂ Emissions (2001-2016)\nGraph 3 explores the potential relationships between forest loss and atmospheric carbon levels. We created a dual-axis graph for both tree cover loss (scaled to match the range of CO₂) and CO₂ levels which are plotted together by year. This visualization helps us visually assess whether higher deforestation years might be associated with increased carbon emissions."
+  }
+]
